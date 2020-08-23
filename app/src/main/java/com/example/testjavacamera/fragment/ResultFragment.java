@@ -1,4 +1,4 @@
-package com.example.testjavacamera;
+package com.example.testjavacamera.fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
+
+import com.example.testjavacamera.BaseResultExtractor;
+import com.example.testjavacamera.RecognitionResultEntry;
+import com.example.testjavacamera.ResultExtractorFactoryProvider;
+import com.example.testjavacamera.ResultSource;
 import com.microblink.entities.recognizers.Recognizer;
 import com.microblink.util.Log;
 
@@ -29,7 +34,7 @@ public class ResultFragment extends BaseResultFragment {
                 ResultSource newResultSource = ResultSource.values()[pos];
                 if (newResultSource != resultSource) {
                     resultSource = newResultSource;
-                    setupListAdapter();
+                   setupListAdapter();
                 }
             }
 

@@ -1,21 +1,21 @@
-package com.example.testjavacamera;
+package com.example.testjavacamera.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ListView;
-
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.fragment.app.Fragment;
+
+import com.example.testjavacamera.R;
+import com.example.testjavacamera.RecognitionResultEntry;
 import com.microblink.locale.LanguageUtils;
+
 import java.util.List;
-import java.util.Objects;
 
 
 public abstract class BaseResultFragment extends Fragment {
@@ -54,21 +54,24 @@ public abstract class BaseResultFragment extends Fragment {
         return view;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setupListAdapter();
+        try {
+            setupListAdapter();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         // Hide virtual keyboard
-        Objects.requireNonNull(getActivity()).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     protected void setupListAdapter() {
         List<RecognitionResultEntry> resultEntries = createResultEntries(getActivity());
 
         // Create adapter which will be used to populate ListView.
-        ResultEntryAdapter adapter = new ResultEntryAdapter(getActivity(), R.layout.result_entry,
-                resultEntries);
+        ResultEntryAdapter adapter = new ResultEntryAdapter(getActivity(), R.layout.result_entry, resultEntries);
         mListView.setAdapter(adapter);
     }
 }
